@@ -1,35 +1,21 @@
-console.log("rock, paper or scissors?");
-
-const args = process.argv.slice(2)[0].toLowerCase();
-
 const strArray = ["rock", "paper", "scissors"];
 
-const str = strArray[Math.floor(Math.random() * strArray.length)];
+const args = process.argv[2]?.toLowerCase();
 
-if (strArray.includes(args)) {
-  if (args.toLowerCase() === str) {
-    console.log("draw");
-  } else {
-    switch (args) {
-      case "rock":
-        console.log(
-          "scissors" === str ? "win" : "paper" === str ? "lose" : "ERROR rock",
-        );
-        break;
-      case "paper":
-        console.log(
-          "rock" === str ? "win" : "scissors" === str ? "lose" : "ERROR paper",
-        );
-        break;
-      case "scissors":
-        console.log(
-          "paper" === str ? "win" : "rock" === str ? "lose" : "ERROR scissors",
-        );
-        break;
-      default:
-        console.log("ERROR switch");
-    }
-  }
+const computerMove = strArray[Math.floor(Math.random() * strArray.length)];
+
+// 定义：key 赢 value
+const winsAgainst = {
+  rock: "scissors",
+  paper: "rock",
+  scissors: "paper",
+};
+
+if (!strArray.includes(args)) {
+  console.log("Invalid input! Please choose rock, paper, or scissors.");
+} else if (args === computerMove) {
+  console.log(`Draw! Both chose ${args}`);
 } else {
-  console.log("ERROR includes");
+  const result = winsAgainst[args] === computerMove ? "You Win!" : "You Lose!";
+  console.log(`${result} (You: ${args} vs CPU: ${computerMove})`);
 }
