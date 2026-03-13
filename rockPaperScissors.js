@@ -1,21 +1,18 @@
-const strArray = ["rock", "paper", "scissors"];
+const choices = ["rock", "paper", "scissors"];
 
-const args = process.argv[2]?.toLowerCase();
+const userIdx = choices.indexOf(process.argv[2]?.toLowerCase());
 
-const computerMove = strArray[Math.floor(Math.random() * strArray.length)];
+const cpuIdx = Math.floor(Math.random() * 3);
 
-// 定义：key 赢 value
-const winsAgainst = {
-  rock: "scissors",
-  paper: "rock",
-  scissors: "paper",
-};
+if (userIdx === -1) return console.log("ERROR: Invalid input");
 
-if (!strArray.includes(args)) {
-  console.log("Invalid input! Please choose rock, paper, or scissors.");
-} else if (args === computerMove) {
-  console.log(`Draw! Both chose ${args}`);
+console.log(`CPU chose: ${choices[cpuIdx]}`);
+
+if (userIdx === cpuIdx) {
+  console.log("Draw");
+} else if ((userIdx - cpuIdx + 3) % 3 === 1) {
+  // 索引差值为 1 或 -2 时玩家赢
+  console.log("Win");
 } else {
-  const result = winsAgainst[args] === computerMove ? "You Win!" : "You Lose!";
-  console.log(`${result} (You: ${args} vs CPU: ${computerMove})`);
+  console.log("Lose");
 }
