@@ -1,5 +1,3 @@
-// https://en.wikipedia.org/wiki/Pig_Latin
-
 const args = process.argv[2]?.trim().toLowerCase();
 
 const suffix = "ay";
