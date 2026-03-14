@@ -2,7 +2,7 @@ const args = process.argv.slice(2);
 
 const key = parseInt(args[0]);
 const type = args[1].trim();
-const txt = args[2].trim();
+const txt = args.slice(2).join(" ");
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -13,7 +13,7 @@ function getShiftedIndex(index, shift) {
 }
 
 if (isNaN(key) || !type || !txt) {
-  console.log(`Usage: node script.js ${key} ${type} ${txt}S`);
+  console.log(`Usage: node caesarCipher.js <key> <encrypt|decrypt> "<text>"`);
 } else {
   const normalizedKey = ((key % 26) + 26) % 26;
   const finalShift = type === "encrypt" ? normalizedKey : -normalizedKey;
