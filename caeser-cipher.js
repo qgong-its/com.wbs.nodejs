@@ -8,38 +8,33 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
 let newTxt = "";
 
+function getShiftedIndex(key, type, index) {
+  const shift = ((key % 26) + 26) % 26;
+  if (type === "encrypt") {
+    return (index + shift) % 26;
+  } else if (type === "decrypt") {
+    return (((index - shift) % 26) + 26) % 26;
+  } else {
+    console.log("false type");
+    return;
+  }
+}
+
 if (isNaN(key) || type === "" || txt === "") {
   console.log("false input");
   return;
 } else {
-  const shift = ((key % 26) + 26) % 26;
   const txtArray = txt.split("");
-  if (type === "encrypt") {
-    for (const char of txtArray) {
-      const index = alphabet.indexOf(char.toLowerCase());
-      if (index === -1) {
-        newTxt += char;
-      } else {
-        const isUpper = char !== char.toLowerCase();
-        newTxt += isUpper
-          ? alphabet[(index + shift) % 26].toUpperCase()
-          : alphabet[(index + shift) % 26];
-      }
+  for (const char of txtArray) {
+    const index = alphabet.indexOf(char.toLowerCase());
+    if (index === -1) {
+      newTxt += char;
+    } else {
+      const isUpper = char !== char.toLowerCase();
+      newTxt += isUpper
+        ? alphabet[getShiftedIndex(key, type, index)].toUpperCase()
+        : alphabet[getShiftedIndex(key, type, index)];
     }
-  } else if (type === "decrypt") {
-    for (const char of txtArray) {
-      const index = alphabet.indexOf(char.toLowerCase());
-      if (index === -1) {
-        newTxt += char;
-      } else {
-        const isUpper = char !== char.toLowerCase();
-        newTxt += isUpper
-          ? alphabet[(((index - shift) % 26) + 26) % 26].toUpperCase()
-          : alphabet[(((index - shift) % 26) + 26) % 26];
-      }
-    }
-  } else {
-    console.log("false type");
   }
 }
 
