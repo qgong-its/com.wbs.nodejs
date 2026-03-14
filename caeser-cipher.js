@@ -8,22 +8,15 @@ const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
 
 let newTxt = "";
 
-function getShiftedIndex(key, type, index) {
-  const shift = ((key % 26) + 26) % 26;
-  if (type === "encrypt") {
-    return (index + shift) % 26;
-  } else if (type === "decrypt") {
-    return (((index - shift) % 26) + 26) % 26;
-  } else {
-    console.log("false type");
-    return;
-  }
+function getShiftedIndex(index, shift) {
+  return (((index + shift) % 26) + 26) % 26;
 }
 
-if (isNaN(key) || type === "" || txt === "") {
-  console.log("false input");
-  return;
+if (isNaN(key) || !type || !txt) {
+  console.log(`Usage: node script.js ${key} ${type} ${txt}S`);
 } else {
+  const normalizedKey = ((key % 26) + 26) % 26;
+  const finalShift = type === "encrypt" ? normalizedKey : -normalizedKey;
   const txtArray = txt.split("");
   for (const char of txtArray) {
     const index = alphabet.indexOf(char.toLowerCase());
@@ -32,8 +25,8 @@ if (isNaN(key) || type === "" || txt === "") {
     } else {
       const isUpper = char !== char.toLowerCase();
       newTxt += isUpper
-        ? alphabet[getShiftedIndex(key, type, index)].toUpperCase()
-        : alphabet[getShiftedIndex(key, type, index)];
+        ? alphabet[getShiftedIndex(index, finalShift)].toUpperCase()
+        : alphabet[getShiftedIndex(index, finalShift)];
     }
   }
 }
