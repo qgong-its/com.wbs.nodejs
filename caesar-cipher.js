@@ -17,8 +17,7 @@ if (isNaN(key) || !type || !txt) {
 } else {
   const normalizedKey = ((key % 26) + 26) % 26;
   const finalShift = type === "encrypt" ? normalizedKey : -normalizedKey;
-  const txtArray = txt.split("");
-  for (const char of txtArray) {
+  for (const char of txt) {
     const index = alphabet.indexOf(char.toLowerCase());
     if (index === -1) {
       newTxt += char;
