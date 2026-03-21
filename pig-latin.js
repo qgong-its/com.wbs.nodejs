@@ -7,7 +7,8 @@ const suffix = "ay ";
 let str = "";
 
 for (let word of txt) {
-  if (!word) {
+  if (!word || !/[a-zA-Z]/.test(word)) {
+    str += word + " ";
     continue;
   }
 
@@ -24,6 +25,7 @@ for (let word of txt) {
     if (!prefix) {
       str += word + "w" + suffix;
     } else {
+      // str += word.substring(prefix.length) + prefix + suffix;
       str += word.replace(prefix, "") + prefix + suffix;
     }
   }
